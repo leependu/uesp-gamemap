@@ -2,6 +2,11 @@
 *.pyc
 .vscode/*
 /node_modules/
-.DS_Store
 package-lock.json
 /public/assets/maps/*
+
+# OS
+desktop.ini
+*/desktop.ini
+.DS_Store
+*/.DS_Store
