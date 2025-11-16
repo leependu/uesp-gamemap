@@ -16,7 +16,7 @@ const require = createRequire(import.meta.url);
 const production = !process.env.ROLLUP_WATCH;
 
 // set up local php server
-const phpServ = await phpServer({ port : 2500, base : "public/" });
+const phpServ = await phpServer({ port : 2500, base : "public/", hostname: '0.0.0.0' });
 console.log(`PHP server running at ${phpServ.url}`);
 
 function serve() {

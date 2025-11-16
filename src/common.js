@@ -480,7 +480,16 @@ window.MAP_CONFIG_FILENAME = "config.json"
 window.DEFAULT_MAP_CONFIG_DIR = `${MAPS_DIR}default-${MAP_CONFIG_FILENAME}`;
 window.MAP_CONFIG_DIR = `${MAP_ASSETS_DIR}${CONFIG_DIR}${GAME}-${MAP_CONFIG_FILENAME}`;
 
-window.GAME_DATA_SCRIPT = (isRelease) ? "db/gamemap.php" : `${HOST}/db/gamemap.php`;
+// In dev mode, use local PHP server on port 2500
+// In production mode, use relative path
+if (isDebug) {
+	const phpHost = location.hostname.includes("localhost")
+		? "http://localhost:2500"
+		: `http://${location.hostname}:2500`;
+	window.GAME_DATA_SCRIPT = `${phpHost}/db/gamemap.php`;
+} else {
+	window.GAME_DATA_SCRIPT = "db/gamemap.php";
+}
 
 window.LOCTYPES = {
 	MARKER : 1,
