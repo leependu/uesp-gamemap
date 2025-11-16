@@ -2317,7 +2317,12 @@ class GameMap
 	public function writeHeaders ()
 	{
 		ob_start("ob_gzhandler");
-		
+
+		// CORS headers for local development
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+		header("Access-Control-Allow-Headers: Content-Type");
+
 		header("Expires: 0");
 		header("Pragma: no-cache");
 		header("Cache-Control: no-cache, no-store, must-revalidate");
@@ -2335,6 +2340,15 @@ class GameMap
 	
 }
 
+
+// Handle OPTIONS preflight requests for CORS
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+	header("Access-Control-Allow-Origin: *");
+	header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+	header("Access-Control-Allow-Headers: Content-Type");
+	http_response_code(200);
+	exit();
+}
 
 $g_GameMap = new GameMap();
 $g_GameMap->doAction();
